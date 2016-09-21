@@ -118,6 +118,9 @@ int main(int argc, char *argv[])
           if (event.touch.finger == 0)
           {
             image.setPosition(event.touch.x, event.touch.y);
+#if defined(USE_JNI)
+            vibrate(sf::milliseconds(10));
+#endif
           }
           break;
       }
