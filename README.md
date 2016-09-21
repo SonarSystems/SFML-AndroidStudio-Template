@@ -4,7 +4,7 @@ WIP. Android Studio, with the Gradle build system, template for a Native App wit
 ## Prerequisites
 * Install Android Studio (2.2+)
 * At the first startup of Android Studio install the SDK and NDK in Android Studio. I recommend doing it directly in android studio so your sdk and ndk directories are set correctly
-* Install SFML for android (use gnustl_shared, otherwise you have to the change the build.gradle file in the template), have a look at the wiki there is a tutorial
+* Install SFML for android (use gnustl_shared, otherwise you have to the change the build.gradle file in the template), have a look at the wiki there is a tutorial. By default the template will try to compile the app for *armeabi-v7a* and *armeabi*, you can change this behaviour in the build.gradle file (abiFilters), so you need to compile SFML for these too architectures, to use the template without changes to the abiFilters (Only release support at the moment).
 
 ## How to use
 1. Clone this git, rename the folder and then just open it in android studio (2.2+)
