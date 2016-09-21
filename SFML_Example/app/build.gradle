@@ -90,8 +90,9 @@ model {
             moduleName = "sfml_example"
             toolchain = "clang"
             stl = "gnustl_shared"
+            ldFlags.add("-latomic") //Otherwise armeabi won't work
             ldLibs.addAll(['log', 'android', 'EGL', 'GLESv1_CM'])
-            abiFilters.addAll(["armeabi-v7a", "armabi"])
+            abiFilters.addAll(["armeabi-v7a", "armeabi"])
         }
 
         sources {
