@@ -15,4 +15,4 @@ Because SFML loads at startup the usercode as a shared lib, it's necessary that 
 * Support debug/release linking
 * Maybe write a script to create the project with updated module application name
 
-Don't forget to change the applicationId and moduleName in the app/build.gradle file or otherwise other SFML-Example project will be in conflict with your shared-libs
+Don't forget to change the applicationId and moduleName in the app/build.gradle file or otherwise other SFML-Example projects will be in conflict with your shared-libs
