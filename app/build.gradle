@@ -1,0 +1,126 @@
+/*
+    You should only change the applicationId and maybe the toolchain/stl, all other settings should be made in the other build.gradle file!
+ */
+
+apply plugin: 'com.android.model.application'
+
+def ndkDir = System.getenv("ANDROID_NDK_HOME")
+def propertiesFile = project.rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    Properties properties = new Properties()
+    properties.load(propertiesFile.newDataInputStream())
+    ndkDir = properties.getProperty('ndk.dir')
+}
+
+model {
+
+    repositories {
+        libs(PrebuiltLibraries) {
+            sfml_activity {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-activity.so")
+                }
+            }
+            sfml_system {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-system.so")
+                }
+            }
+            sfml_activity {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-activity.so")
+                }
+            }
+            sfml_window {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-window.so")
+                }
+            }
+            sfml_graphics {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-graphics.so")
+                }
+            }
+            sfml_main {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-main.a")
+                }
+            }
+            sfml_audio {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-audio.so")
+                }
+            }
+            sfml_network {
+                headers.srcDir "${ndkDir}/sources/sfml/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/lib/${targetPlatform.getName()}/libsfml-network.so")
+                }
+            }
+            openal {
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${ndkDir}/sources/sfml/extlibs/lib/${targetPlatform.getName()}/libopenal.so")
+                }
+            }
+        }
+    }
+
+    android {
+        compileSdkVersion 24
+        buildToolsVersion "24.0.2"
+        defaultConfig {
+            applicationId "sfml.com.sfml_dummy" //Replace this with your real package name (e.g. com.StudioName.GameName)
+            minSdkVersion.apiLevel 15
+            targetSdkVersion.apiLevel 24
+            versionCode 1
+            versionName "1.0"
+        }
+
+        ndk {
+            platformVersion = 9
+            moduleName = "sfml_example"
+            toolchain = "clang"
+            stl = "gnustl_shared"
+            ldLibs.addAll(['log', 'android', 'EGL', 'GLESv1_CM'])
+            abiFilters.addAll(["armeabi-v7a", "armabi"])
+        }
+
+        sources {
+            main {
+                jni {
+                    dependencies {
+                        //Do not add dependencies here, use the build.gradle from the project linked
+                        library "sfml_activity"
+                        library "openal"
+                        library "sfml_system"
+                        library "sfml_window"
+                        library "sfml_graphics"
+                        library "sfml_audio"
+                        library "sfml_network"
+                        library "sfml_main" linkage "static"
+                    }
+                }
+            }
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles.add(file('proguard-rules.txt'))
+
+                ndk {
+                    debuggable false
+                }
+
+
+            }
+        }
+    }
+}
