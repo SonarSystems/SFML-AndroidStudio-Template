@@ -1,5 +1,7 @@
 /*
-    You should only change the applicationId and maybe the toolchain/stl, all other settings should be made in the other build.gradle file!
+    To change:
+     -moduleName (don't forget to update it in the manifest too!
+     -applicationId
  */
 
 apply plugin: 'com.android.model.application'
@@ -77,7 +79,7 @@ model {
         buildToolsVersion "24.0.2"
         defaultConfig {
             applicationId "sfml.com.sfml_dummy" //Replace this with your real package name (e.g. com.StudioName.GameName)
-            minSdkVersion.apiLevel 15
+            minSdkVersion.apiLevel 9
             targetSdkVersion.apiLevel 24
             versionCode 1
             versionName "1.0"
